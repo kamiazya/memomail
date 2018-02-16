@@ -13,6 +13,7 @@ before_install:
   - ./cc-test-reporter before-build
 
 script:
+  - go test -v ./...
   - go test -race -coverprofile=coverage.txt -covermode=atomic
   - go test -coverprofile c.out ./...
 
