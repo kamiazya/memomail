@@ -1,4 +1,7 @@
-.PHONY: run mail-server-start mail-server-stop
+.PHONY: dry run mail-server-start mail-server-stop
+
+dry:
+	@echo "dry make";
 
 run:
 	go run main.go config.go
