@@ -15,14 +15,14 @@ before_install:
 install:
   - go get github.com/spf13/viper
   - go get gopkg.in/gomail.v2
-  - go test -v ./...
+  - go test -v .
 
-script:
-  - go test -race -coverprofile=coverage.txt -covermode=atomic
-  - go test -coverprofile c.out ./...
+# script:
+#   - go test -race -coverprofile=coverage.txt -covermode=atomic
+#   - go test -coverprofile c.out ./...
 
-after_script:
-  - ./cc-test-reporter after-build -t gocov --exit-code $TRAVIS_TEST_RESULT
+# after_script:
+#   - ./cc-test-reporter after-build -t gocov --exit-code $TRAVIS_TEST_RESULT
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
