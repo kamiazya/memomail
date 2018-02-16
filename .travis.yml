@@ -15,6 +15,7 @@ before_install:
 install:
   - go get github.com/spf13/viper
   - go get gopkg.in/gomail.v2
+  - go get golang.org/x/crypto/ssh/terminal
   - go test -v .
 
 # script:
