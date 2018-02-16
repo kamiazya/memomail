@@ -12,8 +12,12 @@ before_install:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 
-script:
+install:
+  - go get github.com/spf13/viper
+  - go get gopkg.in/gomail.v2
   - go test -v ./...
+
+script:
   - go test -race -coverprofile=coverage.txt -covermode=atomic
   - go test -coverprofile c.out ./...
 
