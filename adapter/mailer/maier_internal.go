@@ -26,7 +26,7 @@ func (mlr *mailer) Send(msg *message.Message) (err error) {
 	m := gomail.NewMessage()
 	m.SetHeader("From", mlr.c.EmailAddress)
 	m.SetHeader("To", mlr.c.EmailAddress)
-	m.SetHeader("Subject", "test")
+	m.SetHeader("Subject", "memomail")
 	m.SetBody("text/plain", msg.String())
 	err = mlr.d.DialAndSend(m)
 	return

@@ -1,0 +1,18 @@
+# select editor
+#   you can pick
+#     - vim
+#     - micro
+#     - emacs
+editor: micro
+
+# your mailer setting
+mailer:
+  # server host
+  host: localhost
+  # server port for stmp  
+  port: 25
+  # your email address
+  email-address: test@example.com
+  # about you
+  username: yourname
+  password: secrEtpassw0rd

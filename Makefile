@@ -4,7 +4,7 @@ dry:
 	@echo "dry make";
 
 run:
-	go run main.go config.go
+	go run main.go config.go init.go
 
 mail-server-start:
 	docker run \

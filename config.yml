@@ -1,6 +1,0 @@
-mailer:
-  host: localhost
-  port: 25
-  email-address: test@example.com
-  username: test
-  password: test

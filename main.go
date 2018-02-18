@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"syscall"
 
 	"github.com/kamiazya/memomail/adapter/editor"
@@ -12,11 +13,9 @@ import (
 )
 
 func main() {
-	c, getConfigErr := getConfig()
-	if getConfigErr != nil {
-		fmt.Println(getConfigErr.Error())
-		return
-	}
+	// save config.
+	defer saveConfig()
+
 	mlr := mailer.New(c.Mailer)
 
 	var (
@@ -24,18 +23,32 @@ func main() {
 		err error
 	)
 	if terminal.IsTerminal(syscall.Stdin) {
-		edtr := editor.Vim()
+
+		// switch editor
+		var edtr editor.Editor
+		switch c.Editor {
+		case "micro":
+			edtr = editor.Micro()
+		case "emacs":
+			edtr = editor.Emacs()
+		default:
+			edtr = editor.Vim()
+		}
+
+		// write message in the editor
 		msg, err = edtr.WriteMessage()
 	} else {
+		// read message from standard input
 		msg, err = stdin.ReadMessage()
 	}
 	if err != nil {
 		fmt.Println(err.Error())
-		return
+		os.Exit(1)
 	}
 
 	sendMailErr := mlr.Send(msg)
 	if sendMailErr != nil {
 		fmt.Println(sendMailErr.Error())
+		os.Exit(1)
 	}
 }
