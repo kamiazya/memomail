@@ -7,13 +7,31 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/8e65ec7e5a316caafb80/maintainability)](https://codeclimate.com/github/kamiazya/memomail/maintainability)
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 
-Memomail is a tool that sends simple notes via email.
+Memomail is a tool to write a memo to send mail.
 
-> Memomailは簡単なメモを電子メールで送信するツールです。
+> Memomailはメモを書いて、メールで送るツールです。
 
 ## Demo
 
 [![asciicast](https://asciinema.org/a/rqcoRmVrfOQpxp9igwPnGSjwj.png)](https://asciinema.org/a/rqcoRmVrfOQpxp9igwPnGSjwj)
+
+The above is a demo to write a memo using Memomail and send it by email.
+
+For the demonstration, I set up a mail server with [Docker](https://hub.docker.com/r/kamiazya/mailcatcher/) so that I can check mail from `localhost:1080`.
+
+> 上記はMemomailを使ってメモを書き、メールで送信するデモです。
+>
+> デモ用に[Docker](https://hub.docker.com/r/kamiazya/mailcatcher/)でメールサーバーを立て、`localhost:1080`からメールを確認できるようにしています。
+
+## Overview
+
+Easily take notes with your favorite editor and send them to your mailbox.
+
+Of course, you can attach attachments as well.
+
+> 好きなエディタで簡単にメモを取って、自分のメールボックスに送信します。
+>
+> もちろん、添付ファイルもつけることができます。
 
 ## Features
 
@@ -31,6 +49,9 @@ open editor and you write a note.
 $ echo "hello, meilmemo" | mailmemo
 # send stdin
 # message will be "hello, meilmemo".
+
+$ mailmemo -a hoge.txt -a huga.log
+# send mail with some attachments
 ```
 
 ### Config File

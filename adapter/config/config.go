@@ -1,4 +1,4 @@
-package main
+package config
 
 import (
 	"fmt"
@@ -6,16 +6,27 @@ import (
 	"os/user"
 	"path/filepath"
 
+	"github.com/kamiazya/memomail/adapter/mailer"
+
 	"github.com/spf13/viper"
 	yaml "gopkg.in/yaml.v2"
 )
 
-func init() {
-	setDefault()
-	syncConfig()
+func New() (config *Config, err error) {
+	config = new(Config)
+	config.setDefault()
+	if err = config.readConfig(); err != nil {
+		return nil, err
+	}
+	return config, nil
 }
 
-func setDefault() {
+type Config struct {
+	Editor string         `yaml:"editor"`
+	Mailer *mailer.Config `yaml:"mailer"`
+}
+
+func (c *Config) setDefault() {
 	// editor
 	viper.SetDefault("editor", "vim")
 
@@ -27,7 +38,7 @@ func setDefault() {
 	viper.SetDefault("mailer.password", "")
 }
 
-func syncConfig() {
+func (c *Config) readConfig() error {
 	// file
 	viper.SetConfigName("memomail")
 	viper.SetConfigType("yaml")
@@ -39,15 +50,14 @@ func syncConfig() {
 
 	// read config
 	viper.ReadInConfig()
-	c = new(config)
 	err := viper.Unmarshal(&c)
 	if err != nil {
-		fmt.Println(err.Error())
-		os.Exit(1)
+		return err
 	}
+	return nil
 }
 
-func saveConfig() {
+func (c *Config) SaveConfig() {
 	usr, err := user.Current()
 	if err != nil {
 		return
